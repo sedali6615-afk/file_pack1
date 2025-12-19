@@ -3,48 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فایل پک | نسخه نهایی لایه‌بندی v13.1</title>
+    <title>FILE PACK | پروژه نهایی با توضیحات v13.9</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: 'Vazirmatn', sans-serif; background: #0f172a; color: #f8fafc; min-height: 100vh; margin: 0; scroll-behavior: smooth; overflow-x: hidden; }
         .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        
-        /* پایه لایه‌بندی مودال‌ها */
         .modal { display: none; position: fixed; inset: 0; align-items: center; justify-content: center; background: rgba(0,0,0,0.92); backdrop-filter: blur(25px); padding: 20px; z-index: 9000; }
         .modal.active { display: flex; animation: modalIn 0.3s ease; }
-        
-        /* لایه فوقانی برای فرم‌های ثبت و ویرایش (راه حل مشکل شما) */
-        #fileFormModal, #editUserModal { z-index: 9999 !important; }
-
+        #fileFormModal, #editUserModal, #historyModal { z-index: 9999 !important; }
         .modal-box { width: 100%; max-width: 480px; position: relative; padding: 4.5rem 2rem 2.5rem 2.5rem; display: flex; flex-direction: column; items: center; justify-content: center; text-align: center; border-radius: 3rem; border: 1px solid rgba(255,255,255,0.15); background: #0f172a; }
         .admin-box { max-width: 1050px; width: 95%; height: 85vh; border: 2px solid #3b82f6; }
-
-        .close-btn { position: absolute; top: 1.5rem; left: 1.5rem; font-size: 26px; cursor: pointer; color: #94a3b8; transition: 0.3s; z-index: 99999; }
+        .close-btn { position: absolute; top: 1.5rem; left: 1.5rem; font-size: 26px; cursor: pointer; color: #94a3b8; transition: 0.3s; z-index: 99999; line-height: 1; }
         .close-btn:hover { color: #ef4444; transform: rotate(90deg); }
-
         .main-title { font-weight: 900; font-size: 5.5rem; line-height: 1.2; background: linear-gradient(to bottom, #fff, #64748b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; padding: 20px 0; }
-        
-        /* تراز عمودی عکس - بغل ها سفید */
         .white-preview { background-color: #ffffff !important; border-radius: 1.8rem; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 250px; width: 100%; padding: 0 !important; border: 1px solid rgba(255,255,255,0.1); }
         .white-preview img { height: 100% !important; width: auto !important; max-width: 100%; object-fit: contain; display: block; }
-        
         .file-grid-rtl { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 2.5rem; direction: rtl; }
         @media (min-width: 768px) { .file-grid-rtl { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-
         .file-item { transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; display: flex; flex-direction: column; align-items: center; }
         .file-item:hover { transform: translateY(-12px); }
-
         .info-container { width: 100%; margin: 30px 0; direction: ltr; }
         .info-row { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .info-row:last-child { border-bottom: none; }
-        .info-label { color: #64748b; font-size: 14px; font-weight: bold; text-align: left; }
-        .info-data { color: #fff; font-weight: 900; text-align: right; }
-
+        .info-label { color: #64748b; font-size: 14px; font-weight: bold; text-align: left; min-width: 100px; }
+        .info-data { color: #fff; font-weight: 900; text-align: right; word-break: break-word; }
         .input-standard { width: 100%; max-width: 350px; padding: 14px; border-radius: 1.2rem; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); outline: none; text-align: center; color: white; margin-bottom: 1rem; transition: 0.3s; }
         .btn-animate { transition: 0.3s; cursor: pointer; border: none; outline: none; display: inline-flex; align-items: center; justify-content: center; }
         .btn-animate:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4); }
-
         .tab-btn.active { background: #3b82f6; color: white; }
         .hidden-element { display: none !important; }
         table { width: 100%; text-align: center !important; }
@@ -72,47 +58,40 @@
 
     <footer class="max-w-6xl mx-auto glass rounded-[4rem] p-12 my-20 text-center border border-white/10 shadow-2xl">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
-            
             <div class="flex flex-col items-center">
                 <div class="text-xl font-black text-sky-400 mb-3">درباره فایل پک</div>
-                <p class="text-xs text-gray-400 leading-relaxed max-w-xs mx-auto">
-                    مرجع تخصصی دانلود فایل‌های گرافیکی لایه باز با بالاترین کیفیت برای طراحان حرفه‌ای.
-                </p>
+                <p class="text-xs text-gray-400 leading-relaxed text-center max-w-xs">مرجع دانلود فایل‌های گرافیکی لایه باز.</p>
             </div>
-            
             <div class="flex flex-col items-center">
                 <div class="text-xl font-black text-sky-400 mb-3 font-bold">مدیریت مجموعه</div>
                 <p class="text-lg text-white font-black">سید علی علوی</p>
             </div>
-            
             <div class="flex flex-col items-center">
                 <div class="text-xl font-black text-sky-400 mb-4 font-bold">ارتباط با ما</div>
-                <a href="https://t.me/asedali9903" target="_blank" class="bg-slate-800/60 text-sky-400 px-8 py-2.5 rounded-2xl text-sm font-bold border border-white/5 btn-animate shadow-lg">
-                    asedali9903@
-                </a>
+                <a href="https://t.me/asedali9903" target="_blank" class="bg-slate-800/60 text-sky-400 px-8 py-2.5 rounded-2xl text-sm font-bold border border-white/5 btn-animate shadow-lg">asedali9903@</a>
             </div>
-
         </div>
     </footer>
 
-    <div id="fileFormModal" class="modal">
-        <div class="glass modal-box !max-w-md">
-            <span class="close-btn" onclick="closeModal('fileFormModal')">&times;</span>
-            <h2 id="fFormTitle" class="text-2xl font-black mb-8 text-blue-400">مدیریت محصول</h2>
-            <div class="w-full flex flex-col items-center">
-                <input type="text" id="f_title" placeholder="نام فایل" class="input-standard">
-                <input type="text" id="f_img" placeholder="لینک تصویر" class="input-standard">
-                <input type="text" id="f_cat" placeholder="نوع فایل" class="input-standard">
-                <input type="text" id="f_link" placeholder="لینک دانلود" class="input-standard">
-                <textarea id="f_desc" placeholder="توضیحات" class="input-standard h-24 py-3"></textarea>
-                <button id="btnSaveFile" class="btn-animate w-full max-w-[350px] py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-xl mt-4">ذخیره نهایی</button>
+    <div id="downloadModal" class="modal">
+        <div class="glass modal-box !max-w-lg">
+            <span class="close-btn" onclick="closeModal('downloadModal')">&times;</span>
+            <div id="modalMedia" class="white-preview mb-8 shadow-inner flex items-center justify-center"><img id="m_img_src" src="" class="h-full"></div>
+            <div class="info-container">
+                <div class="info-row"><span class="info-label">File Name:</span><span id="m_name" class="info-data text-white"></span></div>
+                <div class="info-row"><span class="info-label">File Code:</span><span id="m_code" class="info-data text-sky-400"></span></div>
+                <div class="info-row"><span class="info-label">File Type:</span><span id="m_type" class="info-data text-white"></span></div>
+                <div class="info-row"><span class="info-label">Description:</span><span id="m_desc" class="info-data text-gray-400 font-medium"></span></div>
             </div>
+            <div class="w-full h-[1px] bg-gray-700/60 mb-8"></div>
+            <button id="btnFinalDown" class="btn-animate w-full py-5 bg-blue-600 text-white font-black rounded-2xl shadow-xl text-lg">دانلود</button>
         </div>
     </div>
 
-    <div id="dashboardModal" class="modal"><div class="modal-box admin-box"><span class="close-btn" onclick="closeModal('dashboardModal')">&times;</span><h2 class="text-3xl font-black text-blue-400 mb-8">پنل مدیریت هوشمند</h2><div class="flex flex-wrap gap-4 mb-8 justify-center"><button id="tabUsersBtn" class="tab-btn active glass px-10 py-2.5 rounded-xl text-sm font-bold">کاربران</button><button id="tabFilesBtn" class="tab-btn glass px-10 py-2.5 rounded-xl text-sm font-bold">فایل‌ها</button><button id="btnSendReport" class="bg-[#c2410c] text-white px-8 py-2.5 rounded-xl text-sm font-bold btn-animate shadow-lg">📊 گزارش تلگرام</button></div><div id="secUsers" class="w-full overflow-auto"><table class="w-full text-xs text-white"><thead class="text-sky-400"><tr><th>ردیف</th><th>نام</th><th>آیدی</th><th>شماره</th><th>سقف</th><th>عملیات</th></tr></thead><tbody id="utbody"></tbody></table></div><div id="secFiles" class="w-full hidden-element overflow-auto"><div class="flex justify-center mb-6"><button id="openAddFile" class="bg-blue-600 text-white px-10 py-3 rounded-xl font-bold btn-animate shadow-lg">افزودن محصول جدید</button></div><table class="w-full text-xs text-white"><thead class="text-sky-400"><tr><th>ردیف (ID)</th><th>نام فایل</th><th>عملیات</th></tr></thead><tbody id="ftbody"></tbody></table></div></div></div>
-    <div id="downloadModal" class="modal"><div class="glass modal-box !max-w-lg"><span class="close-btn" onclick="closeModal('downloadModal')">&times;</span><div id="modalMedia" class="white-preview mb-8 shadow-inner flex items-center justify-center"><img id="m_img_src" src="" class="h-full"></div><div class="info-container"><div class="info-row"><span class="info-label">File Name:</span><span id="m_name" class="info-data text-white"></span></div><div class="info-row"><span class="info-label">File Code:</span><span id="m_code" class="info-data text-sky-400"></span></div><div class="info-row"><span class="info-label">File Type:</span><span id="m_type" class="info-data text-white"></span></div></div><div class="w-full h-[1px] bg-gray-700/60 mb-8"></div><button id="btnFinalDown" class="btn-animate w-full py-5 bg-blue-600 text-white font-black rounded-2xl shadow-xl text-lg">دانلود مستقیم</button></div></div>
-    <div id="editUserModal" class="modal"><div class="glass modal-box"><span class="close-btn" onclick="closeModal('editUserModal')">&times;</span><h2 class="text-2xl font-black mb-8 text-sky-400">ویرایش کاربر</h2><div class="w-full flex flex-col items-center"><input type="text" id="e_name" class="input-standard"><input type="text" id="e_tele" class="input-standard"><input type="number" id="e_limit" class="input-standard"><button id="btnSaveUserEdit" class="btn-animate w-full max-w-[350px] py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-xl mt-4">ثبت تغییرات</button></div></div></div>
+    <div id="fileFormModal" class="modal"><div class="glass modal-box !max-w-md"><span class="close-btn" onclick="closeModal('fileFormModal')">&times;</span><h2 id="fFormTitle" class="text-2xl font-black mb-8 text-blue-400">ثبت محصول</h2><div class="w-full flex flex-col items-center"><input type="text" id="f_title" placeholder="نام محصول" class="input-standard"><input type="text" id="f_img" placeholder="لینک تصویر" class="input-standard"><input type="text" id="f_cat" placeholder="فرمت (PSD...)" class="input-standard"><input type="text" id="f_link" placeholder="لینک دانلود" class="input-standard"><textarea id="f_desc" placeholder="توضیحات محصول" class="input-standard h-24 py-3"></textarea><button id="btnSaveFile" class="btn-animate w-full max-w-[350px] py-4 bg-blue-600 text-white font-bold rounded-2xl mt-4">ذخیره</button></div></div></div>
+    <div id="dashboardModal" class="modal"><div class="modal-box admin-box"><span class="close-btn" onclick="closeModal('dashboardModal')">&times;</span><h2 class="text-3xl font-black text-blue-400 mb-8 text-center">پنل مدیریت</h2><div class="flex flex-wrap gap-4 mb-8 justify-center"><button id="tabUsersBtn" class="tab-btn active glass px-10 py-2.5 rounded-xl text-sm font-bold">کاربران</button><button id="tabFilesBtn" class="tab-btn glass px-10 py-2.5 rounded-xl text-sm font-bold">فایل‌ها</button><button id="btnSendReport" class="bg-[#c2410c] text-white px-8 py-2.5 rounded-xl text-sm font-bold btn-animate shadow-lg">📊 گزارش تلگرام</button></div><div id="secUsers" class="w-full overflow-auto"><table class="w-full text-xs text-white"><thead class="text-sky-400"><tr><th>ردیف</th><th>نام</th><th>آیدی</th><th>شماره</th><th>اعتبار</th><th>تاریخچه</th><th>عملیات</th></tr></thead><tbody id="utbody"></tbody></table></div><div id="secFiles" class="w-full hidden-element overflow-auto"><div class="flex justify-center mb-6"><button id="openAddFile" class="bg-blue-600 text-white px-10 py-3 rounded-xl font-bold">افزودن محصول جدید</button></div><table class="w-full text-xs text-white"><thead class="text-sky-400"><tr><th>ID</th><th>نام فایل</th><th>عملیات</th></tr></thead><tbody id="ftbody"></tbody></table></div></div></div>
+    <div id="historyModal" class="modal"><div class="glass modal-box !max-w-md"><span class="close-btn" onclick="closeModal('historyModal')">&times;</span><h2 class="text-2xl font-black mb-8 text-blue-400 text-center">تاریخچه دانلود</h2><div id="historyContent" class="w-full flex flex-col gap-3 overflow-y-auto max-h-[50vh] pr-2"></div></div></div>
+    <div id="editUserModal" class="modal"><div class="glass modal-box"><span class="close-btn" onclick="closeModal('editUserModal')">&times;</span><h2 class="text-2xl font-black mb-8 text-sky-400">ویرایش کاربر</h2><div class="w-full flex flex-col items-center"><input type="text" id="e_name" class="input-standard"><input type="text" id="e_tele" class="input-standard"><input type="number" id="e_limit" class="input-standard"><button id="btnSaveUserEdit" class="btn-animate w-full max-w-[350px] py-4 bg-blue-600 text-white font-bold rounded-2xl mt-4">ثبت نهایی</button></div></div></div>
     <div id="adminLoginModal" class="modal"><div class="glass modal-box"><span class="close-btn" onclick="closeModal('adminLoginModal')">&times;</span><h2 class="text-2xl font-black mb-8 text-blue-400">ورود مدیریت</h2><div class="w-full flex flex-col items-center"><input type="text" id="adm_u" placeholder="کاربر" class="input-standard"><input type="password" id="adm_p" placeholder="رمز" class="input-standard"><button id="btnAdminLogin" class="btn-animate w-full max-w-[350px] py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-xl">تایید هویت</button></div></div></div>
     <div id="loginModal" class="modal"><div class="glass modal-box"><span class="close-btn" onclick="closeModal('loginModal')">&times;</span><h2 class="text-2xl font-black mb-8 text-blue-400">ورود</h2><div class="w-full flex flex-col items-center"><input type="text" id="l_id" placeholder="آیدی تلگرام" class="input-standard"><input type="text" id="l_ph" placeholder="شماره تماس" class="input-standard"><button id="btnDoLogin" class="btn-animate w-full max-w-[350px] py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-xl">ورود</button><button onclick="closeModal('loginModal'); openModal('signupModal')" class="mt-8 text-blue-400 text-xs font-bold underline">ثبت‌نام جدید</button></div></div></div>
     <div id="signupModal" class="modal"><div class="glass modal-box"><span class="close-btn" onclick="closeModal('signupModal')">&times;</span><h2 class="text-2xl font-black mb-8 text-sky-400">عضویت</h2><div class="w-full flex flex-col items-center"><input type="text" id="reg_n" placeholder="نام" class="input-standard"><input type="text" id="reg_id" placeholder="آیدی" class="input-standard"><input type="text" id="reg_ph" placeholder="شماره" class="input-standard"><button id="btnDoSignup" class="btn-animate w-full max-w-[350px] py-4 mt-4 bg-sky-500 text-black font-black rounded-2xl shadow-xl">تایید نهایی</button></div></div></div>
@@ -125,7 +104,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        let users = []; let files = []; let currentUser = null; let tLink = ""; let editingKey = null; let editUserKey = "";
+        let users = []; let files = []; let currentUser = null; let tLink = ""; let tName = ""; let editingKey = null; let editUserKey = "";
 
         window.openModal = (id) => document.getElementById(id).classList.add('active');
         window.closeModal = (id) => document.getElementById(id).classList.remove('active');
@@ -144,7 +123,7 @@
         document.getElementById('tabUsersBtn').onclick = () => { document.getElementById('secUsers').classList.remove('hidden-element'); document.getElementById('secFiles').classList.add('hidden-element'); document.getElementById('tabUsersBtn').classList.add('active'); document.getElementById('tabFilesBtn').classList.remove('active'); };
         document.getElementById('tabFilesBtn').onclick = () => { document.getElementById('secFiles').classList.remove('hidden-element'); document.getElementById('secUsers').classList.add('hidden-element'); document.getElementById('tabFilesBtn').classList.add('active'); document.getElementById('tabUsersBtn').classList.remove('active'); };
 
-        // Data Sync
+        // Real-time Files & Populate Download Modal (v13.9)
         onValue(ref(db, 'files'), (s) => {
             files = s.val() ? Object.entries(s.val()).map(([key, val]) => ({...val, key})) : [];
             const grid = document.getElementById('fileGrid'); grid.innerHTML = '';
@@ -153,45 +132,82 @@
                 const smartID = index + 1;
                 const card = document.createElement('div');
                 card.className = "glass p-6 rounded-[2.5rem] file-item shadow-2xl text-center";
-                card.innerHTML = `<div class="white-preview mb-6 shadow-xl"><img src="${f.img}"></div><div class="text-sky-400 text-[10px] font-bold uppercase mb-2">CODE: ${smartID}</div><h3 class="text-white text-lg font-black mb-6">${f.title}</h3><div class="text-blue-400 text-xs font-black flex items-center justify-center gap-2 mt-auto">مشاهده و دانلود <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></div>`;
-                card.onclick = () => { document.getElementById('m_name').innerText = f.title; document.getElementById('m_type').innerText = f.cat || 'Graphic'; document.getElementById('m_code').innerText = smartID; document.getElementById('m_img_src').src = f.img; tLink = f.link; openModal('downloadModal'); };
+                card.innerHTML = `<div class="white-preview mb-6 shadow-xl"><img src="${f.img}"></div><div class="text-sky-400 text-[10px] font-bold uppercase mb-2">CODE: ${smartID}</div><h3 class="text-white text-lg font-black mb-6">${f.title}</h3><div class="text-blue-400 text-xs font-black">مشاهده و دانلود</div>`;
+                card.onclick = () => { 
+                    tName = f.title; tLink = f.link;
+                    document.getElementById('m_name').innerText = f.title; 
+                    document.getElementById('m_type').innerText = f.cat || 'Graphic'; 
+                    document.getElementById('m_code').innerText = smartID; 
+                    document.getElementById('m_desc').innerText = f.desc || '---'; // اضافه شدن توضیحات
+                    document.getElementById('m_img_src').src = f.img; 
+                    openModal('downloadModal'); 
+                };
                 grid.appendChild(card);
                 ft.innerHTML += `<tr><td>#${smartID}</td><td class="font-bold text-white">${f.title}</td><td><button class="text-blue-400 mr-4" onclick="window.editF('${f.key}')">ویرایش</button><button class="text-red-400" onclick="window.delF('${f.key}')">حذف</button></td></tr>`;
             });
         });
 
+        // Real-time Users
         onValue(ref(db, 'users'), (s) => {
             users = s.val() ? Object.entries(s.val()).map(([key, val]) => ({...val, key})) : [];
             const ut = document.getElementById('utbody'); ut.innerHTML = '';
-            users.forEach((u, i) => { ut.innerHTML += `<tr><td>${i+1}</td><td>${u.name}</td><td>@${u.telegram}</td><td>${u.phone}</td><td class="font-bold text-sky-400">${u.customLimit || 5}</td><td><button class="bg-blue-600 px-4 py-1.5 rounded-xl btn-animate" onclick="window.editU('${u.key}')">ویرایش</button></td></tr>`; });
+            users.forEach((u, i) => { ut.innerHTML += `<tr><td>${i+1}</td><td>${u.name}</td><td>@${u.telegram}</td><td>${u.phone}</td><td class="font-black text-sky-400">${u.customLimit || 0}</td><td><button class="text-blue-400 underline" onclick="window.showH('${u.phone}')">تاریخچه</button></td><td><button class="bg-blue-600 px-4 py-1.5 rounded-xl btn-animate" onclick="window.editU('${u.key}')">ویرایش</button></td></tr>`; });
             const saved = localStorage.getItem('filepack_session');
-            if (saved) { currentUser = JSON.parse(saved); document.getElementById('userGreeting').innerText = "خوش آمدید، " + currentUser.name; document.getElementById('userGreeting').classList.remove('hidden'); document.getElementById('navLoginBtn').innerText = "خروج"; }
+            if (saved) { 
+                const sessionData = JSON.parse(saved);
+                currentUser = users.find(u => u.phone === sessionData.phone);
+                if(currentUser) {
+                    document.getElementById('userGreeting').innerText = `خوش آمدید، ${currentUser.name} (اعتبار: ${currentUser.customLimit})`; 
+                    document.getElementById('userGreeting').classList.remove('hidden'); 
+                    document.getElementById('navLoginBtn').innerText = "خروج"; 
+                }
+            }
         });
 
-        // Core Functions
+        // Download Smart Logic
+        document.getElementById('btnFinalDown').onclick = () => {
+            if (!currentUser) return (closeModal('downloadModal'), openModal('loginModal'));
+            const isDuplicate = currentUser.history && Object.values(currentUser.history).some(log => log.fileName === tName);
+            if (isDuplicate) { window.open(tLink, '_blank'); alert('♻️ فایل تکراری: اعتباری کسر نشد.'); return; }
+            if (currentUser.customLimit <= 0) return alert('⚠️ اعتبار تمام شده!');
+
+            const newLimit = currentUser.customLimit - 1;
+            const logData = { fileName: tName, date: new Date().toLocaleString('fa-IR') };
+            update(ref(db, `users/${currentUser.phone}`), { customLimit: newLimit }).then(() => {
+                push(ref(db, `users/${currentUser.phone}/history`), logData);
+                const botToken = "7900019888:AAE1svoVvUbbFvqNM0AL4S7-ow-Wt2n6yy8";
+                const chatId = "5971023799";
+                const msg = `📥 دانلود جدید\n👤 نام: ${currentUser.name}\n📁 فایل: ${tName}\n💎 اعتبار: ${newLimit}`;
+                fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(msg)}`);
+                window.open(tLink, '_blank');
+            });
+        };
+
+        window.showH = (phone) => {
+            const user = users.find(u => u.phone === phone);
+            const container = document.getElementById('historyContent');
+            container.innerHTML = "";
+            if (user.history) { Object.values(user.history).reverse().forEach(log => { container.innerHTML += `<div class="glass p-4 rounded-2xl border border-white/5 flex justify-between items-center text-right"><span class="text-white font-bold text-xs">${log.fileName}</span><span class="text-[9px] text-gray-500">${log.date}</span></div>`; }); } 
+            else container.innerHTML = `<p class="py-10 text-gray-500 text-center">تاریخچه‌ای یافت نشد.</p>`;
+            openModal('historyModal');
+        };
+
+        // CRUD Actions
         window.delF = (key) => confirm('حذف؟') && remove(ref(db, 'files/' + key));
         window.editF = (key) => { const f = files.find(x => x.key === key); editingKey = key; document.getElementById('f_title').value = f.title; document.getElementById('f_img').value = f.img; document.getElementById('f_cat').value = f.cat || ''; document.getElementById('f_desc').value = f.desc; document.getElementById('f_link').value = f.link; document.getElementById('fFormTitle').innerText = "ویرایش محصول"; openModal('fileFormModal'); };
         window.editU = (key) => { const u = users.find(x => x.key === key); editUserKey = key; document.getElementById('e_name').value = u.name; document.getElementById('e_tele').value = u.telegram; document.getElementById('e_limit').value = u.customLimit || 5; openModal('editUserModal'); };
-        document.getElementById('btnSaveUserEdit').onclick = () => { update(ref(db, 'users/' + editUserKey), { name: document.getElementById('e_name').value, telegram: document.getElementById('e_tele').value.replace('@',''), customLimit: parseInt(document.getElementById('e_limit').value) }).then(() => (alert('تغییرات ذخیره شد'), closeModal('editUserModal'))); };
-        
+        document.getElementById('btnSaveUserEdit').onclick = () => { update(ref(db, 'users/' + editUserKey), { name: document.getElementById('e_name').value, telegram: document.getElementById('e_tele').value.replace('@',''), customLimit: parseInt(document.getElementById('e_limit').value) }).then(() => (alert('ذخیره شد ✅'), closeModal('editUserModal'))); };
         document.getElementById('openAddFile').onclick = () => { editingKey = null; document.getElementById('fFormTitle').innerText = "ثبت محصول جدید"; document.getElementById('f_title').value = ''; document.getElementById('f_img').value = ''; document.getElementById('f_cat').value = ''; document.getElementById('f_link').value = ''; document.getElementById('f_desc').value = ''; openModal('fileFormModal'); };
-        
         document.getElementById('btnSaveFile').onclick = () => {
             const data = { title: document.getElementById('f_title').value.trim(), img: document.getElementById('f_img').value.trim(), cat: document.getElementById('f_cat').value.trim(), link: document.getElementById('f_link').value.trim(), desc: document.getElementById('f_desc').value.trim() };
-            if(!data.title || !data.img) return alert('نام و عکس الزامی است!');
+            if(!data.title || !data.img) return alert('خطا!');
             const fRef = editingKey ? ref(db, 'files/' + editingKey) : push(ref(db, 'files'));
-            (editingKey ? update(fRef, data) : set(fRef, data)).then(() => { alert('موفقیت‌آمیز ✅'); closeModal('fileFormModal'); });
+            (editingKey ? update(fRef, data) : set(fRef, data)).then(() => { alert('ثبت شد!'); closeModal('fileFormModal'); });
         };
 
-        document.getElementById('btnSendReport').onclick = () => { let msg = `📊 گزارش هوشمند فایل پک\n\nتعداد کاربران: ${users.length}\nتعداد فایل‌ها: ${files.length}\n\nسید علی علوی - مدیریت`; fetch(`https://api.telegram.org/bot7900019888:AAE1svoVvUbbFvqNM0AL4S7-ow-Wt2n6yy8/sendMessage?chat_id=5971023799&text=${encodeURIComponent(msg)}`).then(() => alert('ارسال شد.')); };
+        document.getElementById('btnSendReport').onclick = () => { let msg = `📊 گزارش هوشمند فایل پک\n\nتعداد کاربران: ${users.length}\nتعداد فایل‌ها: ${files.length}`; fetch(`https://api.telegram.org/bot7900019888:AAE1svoVvUbbFvqNM0AL4S7-ow-Wt2n6yy8/sendMessage?chat_id=5971023799&text=${encodeURIComponent(msg)}`).then(() => alert('ارسال شد.')); };
         document.getElementById('btnDoLogin').onclick = () => { const f = users.find(u => u.telegram.toLowerCase() === document.getElementById('l_id').value.trim().toLowerCase() && u.phone === document.getElementById('l_ph').value.trim()); if(f) { localStorage.setItem('filepack_session', JSON.stringify(f)); location.reload(); } else alert('یافت نشد!'); };
-        document.getElementById('btnDoSignup').onclick = () => { const p = document.getElementById('reg_ph').value.trim(); set(ref(db, 'users/' + p), { name: document.getElementById('reg_n').value.trim(), telegram: document.getElementById('reg_id').value.trim().replace('@',''), phone: p, customLimit: 5 }).then(() => { alert('موفقیت‌آمیز!'); location.reload(); }); };
-        document.getElementById('btnFinalDown').onclick = () => currentUser ? window.open(tLink, '_blank') : (closeModal('downloadModal'), openModal('loginModal'));
-
-    </script>
-    <script>
-        function toggleScroll() { window.scrollY > 300 ? window.scrollTo({top:0, behavior:'smooth'}) : window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'}); }
-        window.onscroll = () => { document.getElementById('scrollText').innerText = window.scrollY > 300 ? 'بریم بالا' : 'بریم پایین'; document.getElementById('scrollIcon').style.transform = window.scrollY > 300 ? 'rotate(180deg)' : 'rotate(0deg)'; };
+        document.getElementById('btnDoSignup').onclick = () => { const p = document.getElementById('reg_ph').value.trim(); set(ref(db, 'users/' + p), { name: document.getElementById('reg_n').value.trim(), telegram: document.getElementById('reg_id').value.trim().replace('@',''), phone: p, customLimit: 5, history: {} }).then(() => { alert('موفقیت‌آمیز!'); location.reload(); }); };
         document.getElementById('site_search').oninput = (e) => { const v = e.target.value.toLowerCase(); document.querySelectorAll('.file-item').forEach(c => c.style.display = c.innerText.toLowerCase().includes(v) ? 'flex' : 'none'); };
     </script>
 </body>
