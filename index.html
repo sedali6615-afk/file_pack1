@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فایل پک | سیستم مدیریت هوشمند v5.1</title>
+    <title>فایل پک | سیستم مدیریت هوشمند v5.2</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -75,7 +75,7 @@
 
     <div id="dashboardModal" class="modal p-4"><div class="admin-panel-bg max-w-6xl w-full p-6 md:p-10 rounded-[3rem] overflow-hidden flex flex-col max-h-[95vh] relative shadow-2xl text-white text-sm text-center"><span class="close-btn" onclick="closeModal('dashboardModal')">&times;</span><h2 class="text-3xl font-black text-blue-400 mb-6 border-b border-blue-500/20 pb-4">پنل مدیریت هوشمند</h2><div class="flex flex-wrap gap-4 mb-6 justify-center"><button onclick="switchTab('users')" id="tabUsers" class="tab-btn active glass px-8 py-2 rounded-xl border border-blue-500/30">کاربران</button><button onclick="switchTab('files')" id="tabFiles" class="tab-btn glass px-8 py-2 rounded-xl border border-blue-500/30">فایل‌ها</button><button onclick="sendFullReportToTelegram()" class="bg-orange-600/80 text-white px-6 py-2 rounded-xl border border-orange-500 font-bold hover:bg-orange-500 btn-animate">📊 گزارش تلگرام</button></div><div id="sectionUsers" class="overflow-auto flex-1"><table class="w-full text-center"><thead><tr class="text-blue-300"><th>ردیف</th><th>نام</th><th>آیدی</th><th>شماره</th><th>سقف</th><th>تاریخچه</th><th>عملیات</th></tr></thead><tbody id="adminUserTableBody"></tbody></table></div><div id="sectionFiles" class="hidden overflow-auto flex-1 text-sm"><button onclick="openAddFile()" class="mb-4 bg-blue-600 text-white px-6 py-2 rounded-xl font-bold shadow-lg">افزودن فایل</button><table class="w-full text-center"><thead><tr class="text-blue-300"><th>ID</th><th>نام فایل</th><th>دسته</th><th>عملیات</th></tr></thead><tbody id="adminFileTableBody"></tbody></table></div></div></div>
     <div id="loginModal" class="modal p-4"><div class="glass max-w-sm w-full p-10 rounded-[3rem] relative flex flex-col items-center text-center border-white/10 shadow-2xl"><span class="close-btn" onclick="closeModal('loginModal')">&times;</span><h2 class="text-2xl font-black mb-6 text-blue-400">ورود</h2><input type="text" id="loginUser" placeholder="آیدی تلگرام" class="glass w-full p-4 rounded-2xl mb-3 outline-none text-center text-white"><input type="text" id="loginPhone" placeholder="شماره تماس" class="glass w-full p-4 rounded-2xl mb-6 outline-none text-center text-white"><button onclick="handleUserLogin()" class="btn-animate w-full py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-lg">ورود</button><div class="mt-6"><button onclick="closeModal('loginModal'); openModal('signupModal')" class="text-blue-400 text-sm font-bold block">ثبت‌نام جدید</button></div></div></div>
-    <div id="signupModal" class="modal p-4"><div class="glass max-w-sm w-full p-10 rounded-[3rem] relative flex flex-col items-center text-center border-white/10 shadow-2xl"><span class="close-btn" onclick="closeModal('signupModal')">&times;</span><h2 class="text-3xl font-black mb-8 text-sky-400">ثبت‌نام</h2><div class="w-full space-y-4"><input type="text" id="regName" placeholder="نام و نام خانوادگی" class="glass w-full p-4 rounded-2xl outline-none text-center text-white"><input type="text" id="regUser" placeholder="آیدی تلگرام" class="glass w-full p-4 rounded-2xl outline-none text-center text-white"><input type="text" id="regPhone" placeholder="شماره تماس" class="glass w-full p-4 rounded-2xl outline-none text-center text-white"></div><button onclick="handleUserSignup()" class="btn-animate w-full py-4 mt-8 bg-sky-500 text-black font-extrabold rounded-2xl shadow-lg">عضویت نهایی</button></div></div>
+    <div id="signupModal" class="modal p-4"><div class="glass max-w-sm w-full p-10 rounded-[3rem] relative flex flex-col items-center text-center border-white/10 shadow-2xl"><span class="close-btn" onclick="closeModal('signupModal')">&times;</span><h2 class="text-3xl font-black mb-8 text-sky-400">ثبت‌نام</h2><div class="w-full space-y-4"><input type="text" id="regName" placeholder="نام و نام خانوادگی" class="glass w-full p-4 rounded-2xl outline-none text-center text-white"><input type="text" id="regUser" placeholder="آیدی تلگرام" class="glass w-full p-4 rounded-2xl outline-none text-center text-white"><input type="text" id="regPhone" placeholder="شماره تماس" class="glass w-full p-4 rounded-2xl outline-none text-center text-white"></div><button onclick="handleUserSignup()" class="btn-animate w-full py-4 mt-8 bg-sky-500 text-black font-extrabold rounded-2xl shadow-lg text-black">عضویت نهایی</button></div></div>
     <div id="adminLoginModal" class="modal p-4"><div class="glass max-w-sm w-full p-8 rounded-[3rem] relative flex flex-col items-center text-center border-blue-500/30 shadow-2xl"><span class="close-btn" onclick="closeModal('adminLoginModal')">&times;</span><h2 class="text-2xl font-black mb-6 text-blue-400">ورود مدیریت</h2><input type="text" id="adminUser" placeholder="نام کاربری" class="glass w-full p-4 rounded-2xl mb-3 outline-none text-center text-white"><input type="password" id="adminPass" placeholder="رمز ورود" class="glass w-full p-4 rounded-2xl mb-6 outline-none text-center text-white"><button onclick="checkAdminAuth()" class="btn-animate w-full py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-lg">ورود</button></div></div>
     <div id="fileFormModal" class="modal p-4"><div class="glass max-w-md w-full p-8 rounded-[3rem] relative overflow-auto max-h-[90vh] text-center border-white/10 shadow-2xl"><span class="close-btn" onclick="closeModal('fileFormModal')">&times;</span><h2 id="fileFormTitle" class="text-2xl font-black mb-6 text-blue-400">مدیریت فایل</h2><input type="text" id="fTitle" placeholder="File Name" class="glass w-full p-4 rounded-2xl mb-3 outline-none text-white"><input type="text" id="fImg" placeholder="Link (Image/Video)" class="glass w-full p-4 rounded-2xl mb-3 outline-none text-left text-white"><textarea id="fDesc" placeholder="توضیحات" class="glass w-full p-4 rounded-2xl mb-3 outline-none h-24 text-white text-center"></textarea><input type="text" id="fLink" placeholder="Download URL" class="glass w-full p-4 rounded-2xl mb-3 outline-none text-left text-white"><input type="text" id="fCat" placeholder="File Type" class="glass w-full p-4 rounded-2xl mb-6 outline-none text-white text-center"><button onclick="saveFile()" class="btn-animate w-full py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-lg">ذخیره</button></div></div>
     <div id="historyModal" class="modal p-4"><div class="admin-panel-bg max-w-2xl w-full p-8 rounded-[3rem] relative flex flex-col max-h-[85vh]"><span class="close-btn" onclick="closeModal('historyModal')">&times;</span><h2 class="text-2xl font-black mb-6 text-blue-400 text-center border-b border-blue-500/20 pb-4 text-white font-bold">تاریخچه دانلود</h2><div id="historyContent" class="overflow-auto flex-1 pr-2 text-right"></div></div></div>
@@ -91,7 +91,7 @@
         let files = JSON.parse(localStorage.getItem('filepack_files') || '[]');
         let currentUser = JSON.parse(localStorage.getItem('filepack_session'));
         let editingFileIndex = null, editingUserIndex = null;
-        let activeDownloadLink = ""; // متغیر ذخیره لینک فعال برای دانلود
+        let currentLink = ""; // ذخیره لینک فایل فعلی برای دانلود
 
         const fixNumbers = (str) => str.toString().replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
 
@@ -99,7 +99,7 @@
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { 
             document.getElementById(id).classList.remove('active'); 
-            if(id === 'downloadModal') { document.getElementById('modalMediaContainer').innerHTML = ''; activeDownloadLink = ""; }
+            if(id === 'downloadModal') { document.getElementById('modalMediaContainer').innerHTML = ''; currentLink = ""; }
         }
 
         function isVideo(url) { return /\.(mp4|webm|ogg|mov)$/i.test(url); }
@@ -128,8 +128,8 @@
             document.getElementById('modalFileName').innerText = f.title;
             document.getElementById('modalFileType').innerText = f.cat || 'General';
             document.getElementById('modalFileCode').innerText = f.id;
-            activeDownloadLink = f.link; // ذخیره لینک فایل انتخابی
-            
+            currentLink = f.link; // بارگذاری لینک واقعی فایل
+
             const container = document.getElementById('modalMediaContainer');
             container.innerHTML = isVideo(f.img) 
                 ? `<video src="${f.img}" class="w-full h-full object-contain" controls autoplay></video>`
@@ -143,9 +143,10 @@
             openModal('downloadModal');
         }
 
+        // تابع اصلی دانلود با کلیک مجازی (حل مشکل مسدود سازی مرورگر)
         function processDownload() {
             if(!currentUser) { closeModal('downloadModal'); openModal('loginModal'); return; }
-            if(!activeDownloadLink || activeDownloadLink === "#" || activeDownloadLink === "") { return alert("لینک دانلودی برای این فایل ثبت نشده است."); }
+            if(!currentLink || currentLink === "#" || currentLink.trim() === "") return alert("❌ خطا: لینک دانلودی برای این فایل ثبت نشده است!");
 
             const today = new Intl.DateTimeFormat('fa-IR').format(new Date());
             const fileName = document.getElementById('modalFileName').innerText;
@@ -155,7 +156,7 @@
             if (currentUser.lastDate !== today) { currentUser.dailyHistory = []; currentUser.lastDate = today; }
             
             if (!currentUser.dailyHistory.includes(fileCode)) {
-                if (currentUser.dailyHistory.length >= (currentUser.customLimit || 5)) return alert(`❌ سقف دانلود روزانه تمام شد.`);
+                if (currentUser.dailyHistory.length >= (currentUser.customLimit || 5)) return alert(`❌ سقف دانلود روزانه شما (${currentUser.customLimit || 5}) تمام شده است.`);
                 currentUser.dailyHistory.push(fileCode);
             }
             
@@ -165,11 +166,16 @@
             localStorage.setItem('filepack_users', JSON.stringify(users));
             localStorage.setItem('filepack_session', JSON.stringify(currentUser));
             
-            // باز کردن لینک دانلود در تب جدید (اصلاح اصلی)
-            window.open(activeDownloadLink, '_blank');
-            
+            // دانلود قطعی: ساخت لینک موقت و کلیک مجازی
+            const trigger = document.createElement('a');
+            trigger.href = currentLink;
+            trigger.target = '_blank';
+            document.body.appendChild(trigger);
+            trigger.click();
+            document.body.removeChild(trigger);
+
             fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: MY_CHAT_ID, text: `📥 دانلود موفق: ${currentUser.name} | فایل: ${fileName}` }) });
-            alert('درخواست تایید شد و دانلود آغاز می‌شود.');
+            alert('درخواست شما تایید شد. فایل در زبانه جدید باز می‌شود.');
         }
 
         window.addEventListener('scroll', () => {
@@ -211,14 +217,14 @@
             const u = fixNumbers(document.getElementById('loginUser').value.trim().replace('@',''));
             const p = fixNumbers(document.getElementById('loginPhone').value.trim());
             const found = users.find(x => x.telegram.toLowerCase() === u.toLowerCase() && x.phone === p);
-            if(found) { localStorage.setItem('filepack_session', JSON.stringify(found)); location.reload(); } else alert('یافت نشد!');
+            if(found) { localStorage.setItem('filepack_session', JSON.stringify(found)); location.reload(); } else alert('اطلاعات یافت نشد!');
         }
 
         function handleUserSignup() {
             const name = document.getElementById('regName').value.trim();
             const tUser = fixNumbers(document.getElementById('regUser').value.trim().replace('@',''));
             const tPhone = fixNumbers(document.getElementById('regPhone').value.trim());
-            if(!name || !tUser || !tPhone) return alert('همه را پر کنید');
+            if(!name || !tUser || !tPhone) return alert('همه فیلدها را پر کنید');
             if(users.some(x => x.phone === tPhone || x.telegram.toLowerCase() === tUser.toLowerCase())) return alert('تکراری!');
             users.push({ name, telegram: tUser, phone: tPhone, lastDate: '', customLimit: 5, dailyHistory: [], detailedHistory: [] });
             localStorage.setItem('filepack_users', JSON.stringify(users));
@@ -232,11 +238,11 @@
         }
 
         function sendFullReportToTelegram() {
-            let msg = "📊 **گزارش جامع فایل پک**\n\n👥 لیست کاربران:\n";
-            if (users.length === 0) msg += "_خالی_";
+            let msg = "📊 گزارش کامل پنل مدیریت فایل پک\n\n";
+            if (users.length === 0) msg += "بدون کاربر";
             else users.forEach((u, i) => msg += `${i+1}. ${u.name} | @${u.telegram} | ${u.phone}\n`);
             fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: MY_CHAT_ID, text: msg }) });
-            alert('گزارش ارسال شد.');
+            alert('گزارش به تلگرام ارسال شد.');
         }
 
         function renderAdminFileTable() {
@@ -252,7 +258,7 @@
             if(editingFileIndex !== null) files[editingFileIndex] = { ...files[editingFileIndex], ...data }; else files.push({ ...data, id: files.length + 1 });
             files = files.map((f, i) => ({ ...f, id: i + 1 })); localStorage.setItem('filepack_files', JSON.stringify(files)); closeModal('fileFormModal'); renderAdminFileTable(); renderHomeFiles();
         }
-        function deleteFile(i) { if(confirm('حذف؟')) { files.splice(i, 1); files = files.map((f, i) => ({ ...f, id: i + 1 })); localStorage.setItem('filepack_files', JSON.stringify(files)); renderAdminFileTable(); renderHomeFiles(); } }
+        function deleteFile(i) { if(confirm('حذف شود؟')) { files.splice(i, 1); files = files.map((f, i) => ({ ...f, id: i + 1 })); localStorage.setItem('filepack_files', JSON.stringify(files)); renderAdminFileTable(); renderHomeFiles(); } }
         function editFile(i) { editingFileIndex = i; const f = files[i]; document.getElementById('fTitle').value = f.title; document.getElementById('fImg').value = f.img; document.getElementById('fDesc').value = f.desc; document.getElementById('fLink').value = f.link; document.getElementById('fCat').value = f.cat; openModal('fileFormModal'); }
         function liveSearch() { let val = document.getElementById('mainSearch').value.toLowerCase(); let items = document.getElementsByClassName('file-item'); for(let item of items) item.style.display = item.innerText.toLowerCase().includes(val) ? "block" : "none"; }
         function updateUserUI() { if(currentUser) { document.getElementById('userStatusBtn').innerText = 'خروج'; document.getElementById('userGreeting').innerText = `خوش آمدید، ${currentUser.name}`; document.getElementById('userGreeting').classList.remove('hidden'); } }
