@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فایل پک | ویترین عمومی v6.8</title>
+    <title>فایل پک | امنیت و حریم خصوصی v6.9</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -21,13 +21,14 @@
         .smart-scroll-btn { position: fixed; bottom: 20px; left: 20px; z-index: 90; padding: 10px 18px; background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.4); backdrop-filter: blur(12px); border-radius: 50px; display: flex; align-items: center; gap: 8px; color: #3b82f6; cursor: pointer; animation: pulse-blue 2s infinite; }
         @keyframes pulse-blue { 0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); } 70% { box-shadow: 0 0 0 12px rgba(59, 130, 246, 0); } 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); } }
         video, img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        input[type="checkbox"] { accent-color: #3b82f6; }
     </style>
 </head>
 <body class="p-4 md:p-8 text-right" onload="initApp()">
 
     <div id="smartScroll" class="smart-scroll-btn" onclick="toggleScroll()">
         <span id="scrollText" class="text-xs font-bold">بریم پایین</span>
-        <svg id="scrollIcon" class="w-4 h-4 rotate-180 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+        <svg id="scrollIcon" class="w-4 h-4 rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
     </div>
 
     <nav class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center mb-12 px-4 py-4 glass rounded-3xl gap-4">
@@ -42,7 +43,7 @@
     <header class="max-w-6xl mx-auto text-center mb-16">
         <h1 class="main-title">فایل پک</h1>
         <div class="relative max-w-xl mx-auto mt-4 px-2">
-            <input type="text" id="mainSearch" oninput="liveSearch()" value="" placeholder="جستجو میان فایل‌ها..." class="glass w-full py-4 px-6 rounded-2xl outline-none text-lg md:text-xl text-center focus:ring-2 ring-blue-500 text-white">
+            <input type="text" id="site_search_input" oninput="liveSearch()" autocomplete="off" name="search_query" placeholder="جستجو میان فایل‌ها..." class="glass w-full py-4 px-6 rounded-2xl outline-none text-lg md:text-xl text-center focus:ring-2 ring-blue-500 text-white">
         </div>
     </header>
 
@@ -56,15 +57,15 @@
         </div>
     </footer>
 
-    <div id="downloadModal" class="modal p-4"><div class="glass max-w-lg w-full p-6 md:p-8 rounded-[2.5rem] relative text-right"><span class="close-btn" onclick="closeModal('downloadModal')">&times;</span><div id="modalMediaContainer" class="w-full h-48 md:h-64 bg-white rounded-3xl mb-6 overflow-hidden border border-white/10 shadow-xl flex items-center justify-center"></div><div class="space-y-2 mb-4 font-bold text-xs md:text-sm" dir="ltr"><div class="flex justify-between items-center border-b border-white/5 pb-1"><span class="text-gray-500 text-[10px]">File Name:</span><span id="modalFileName" class="text-white ml-2 text-right"></span></div><div class="flex justify-between items-center border-b border-white/5 pb-1"><span class="text-gray-500 text-[10px]">File Type:</span><span id="modalFileType" class="text-white ml-2 text-right"></span></div><div class="flex justify-between items-center"><span class="text-gray-500 text-[10px]">File Code:</span><span id="modalFileCode" class="text-sky-400 ml-2 font-black"></span></div></div><div class="text-gray-800 text-center tracking-[0.5em] mb-4">-----------------</div><button onclick="processDownload()" class="btn-animate w-full py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-lg">دانلود</button><p id="limitInfo" class="mt-3 text-center text-[10px] text-gray-500 font-bold"></p></div></div>
+    <div id="loginModal" class="modal p-4"><div class="glass max-w-sm w-full p-8 rounded-[2.5rem] relative flex flex-col items-center text-center border-white/10 shadow-2xl"><span class="close-btn" onclick="closeModal('loginModal')">&times;</span><h2 class="text-xl md:text-2xl font-black mb-6 text-blue-400">ورود به حساب</h2><input type="text" id="loginUser" autocomplete="off" placeholder="آیدی تلگرام" class="glass w-full p-4 rounded-2xl mb-3 outline-none text-center text-white"><input type="text" id="loginPhone" autocomplete="off" placeholder="شماره تماس" class="glass w-full p-4 rounded-2xl mb-4 outline-none text-center text-white"><div class="flex items-center gap-2 mb-6 cursor-pointer"><input type="checkbox" id="rememberMe" class="w-4 h-4"><label for="rememberMe" class="text-xs text-gray-400 select-none">اطلاعات من ذخیره شود (مرا به خاطر بسپار)</label></div><button onclick="handleUserLogin()" class="btn-animate w-full py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-lg">ورود</button><button onclick="closeModal('loginModal'); openModal('signupModal')" class="mt-6 text-blue-400 text-xs font-bold block">ثبت‌نام جدید</button></div></div>
 
+    <div id="downloadModal" class="modal p-4"><div class="glass max-w-lg w-full p-6 md:p-8 rounded-[2.5rem] relative text-right"><span class="close-btn" onclick="closeModal('downloadModal')">&times;</span><div id="modalMediaContainer" class="w-full h-48 md:h-64 bg-white rounded-3xl mb-6 overflow-hidden border border-white/10 shadow-xl flex items-center justify-center"></div><div class="space-y-2 mb-4 font-bold text-xs md:text-sm" dir="ltr"><div class="flex justify-between items-center border-b border-white/5 pb-1"><span class="text-gray-500 text-[10px]">File Name:</span><span id="modalFileName" class="text-white ml-2 text-right"></span></div><div class="flex justify-between items-center border-b border-white/5 pb-1"><span class="text-gray-500 text-[10px]">File Type:</span><span id="modalFileType" class="text-white ml-2 text-right"></span></div><div class="flex justify-between items-center"><span class="text-gray-500 text-[10px]">File Code:</span><span id="modalFileCode" class="text-sky-400 ml-2 font-black"></span></div></div><div class="text-gray-800 text-center tracking-[0.5em] mb-4">-----------------</div><button onclick="processDownload()" class="btn-animate w-full py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-lg">دانلود</button><p id="limitInfo" class="mt-3 text-center text-[10px] text-gray-500 font-bold"></p></div></div>
+    <div id="signupModal" class="modal p-4"><div class="glass max-w-sm w-full p-8 rounded-[2.5rem] relative flex flex-col items-center text-center border-white/10 shadow-2xl"><span class="close-btn" onclick="closeModal('signupModal')">&times;</span><h2 class="text-2xl md:text-3xl font-black mb-6 text-sky-400 text-center">ثبت‌نام</h2><div class="w-full space-y-3"><input type="text" id="regName" autocomplete="off" placeholder="نام و نام خانوادگی" class="glass w-full p-4 rounded-2xl outline-none text-white text-center"><input type="text" id="regUser" autocomplete="off" placeholder="آیدی تلگرام" class="glass w-full p-4 rounded-2xl outline-none text-center text-white"><input type="text" id="regPhone" autocomplete="off" placeholder="شماره تماس" class="glass w-full p-4 rounded-2xl outline-none text-center text-white"></div><button onclick="handleUserSignup()" class="btn-animate w-full py-4 mt-6 bg-sky-500 text-black font-extrabold rounded-2xl shadow-lg text-black">عضویت نهایی</button></div></div>
+    <div id="adminLoginModal" class="modal p-4"><div class="glass max-w-sm w-full p-8 rounded-[2.5rem] relative flex flex-col items-center text-center border-blue-500/30 shadow-2xl"><span class="close-btn" onclick="closeModal('adminLoginModal')">&times;</span><h2 class="text-xl md:text-2xl font-black mb-6 text-blue-400 text-center text-white">ورود مدیریت</h2><input type="text" id="adminUser" autocomplete="off" placeholder="نام کاربری" class="glass w-full p-4 rounded-2xl mb-3 outline-none text-center text-white"><input type="password" id="adminPass" autocomplete="off" placeholder="رمز ورود" class="glass w-full p-4 rounded-2xl mb-6 outline-none text-center text-white"><button onclick="checkAdminAuth()" class="btn-animate w-full py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-lg">ورود</button></div></div>
     <div id="dashboardModal" class="modal p-4"><div class="admin-panel-bg max-w-6xl w-full p-4 md:p-10 rounded-[2.5rem] overflow-hidden flex flex-col max-h-[95vh] relative shadow-2xl text-white text-xs md:text-sm text-center"><span class="close-btn" onclick="closeModal('dashboardModal')">&times;</span><h2 class="text-2xl md:text-3xl font-black text-blue-400 mb-6 border-b border-blue-500/20 pb-4">پنل مدیریت هوشمند</h2><div class="flex flex-wrap gap-2 md:gap-4 mb-6 justify-center"><button onclick="switchTab('users')" id="tabUsers" class="tab-btn active glass px-4 md:px-8 py-2 rounded-xl border border-blue-500/30">کاربران</button><button onclick="switchTab('files')" id="tabFiles" class="tab-btn glass px-4 md:px-8 py-2 rounded-xl border border-blue-500/30">فایل‌ها</button><button onclick="sendFullReportToTelegram()" class="bg-orange-600/80 text-white px-4 md:px-6 py-2 rounded-xl border border-orange-500 font-bold hover:bg-orange-500 btn-animate">📊 گزارش تلگرام</button></div><div id="sectionUsers" class="overflow-auto flex-1"><table class="w-full text-center"><thead><tr class="text-blue-300"><th>ردیف</th><th>نام</th><th>آیدی</th><th>شماره</th><th>سقف</th><th>تاریخچه</th><th>عملیات</th></tr></thead><tbody id="adminUserTableBody"></tbody></table></div><div id="sectionFiles" class="hidden overflow-auto flex-1 text-right"><button onclick="openAddFile()" class="mb-4 bg-blue-600 text-white px-6 py-2 rounded-xl font-bold shadow-lg">افزودن فایل جدید</button><table class="w-full text-center"><thead><tr class="text-blue-300"><th>ID</th><th>نام فایل</th><th>دسته</th><th>عملیات</th></tr></thead><tbody id="adminFileTableBody"></tbody></table></div></div></div>
-    <div id="fileFormModal" class="modal p-4"><div class="glass max-w-md w-full p-8 rounded-[2.5rem] relative overflow-auto max-h-[90vh] text-center border-white/10 shadow-2xl"><span class="close-btn" onclick="closeModal('fileFormModal')">&times;</span><h2 id="fileFormTitle" class="text-xl md:text-2xl font-black mb-6 text-blue-400">مدیریت فایل</h2><input type="text" id="fTitle" placeholder="نام فایل" class="glass w-full p-4 rounded-2xl mb-3 outline-none text-white text-center"><input type="text" id="fImg" placeholder="لینک مستقیم (عکس یا ویدیو)" class="glass w-full p-4 rounded-2xl mb-3 outline-none text-left text-white" dir="ltr"><textarea id="fDesc" placeholder="توضیحات" class="glass w-full p-4 rounded-2xl mb-3 outline-none h-24 text-white text-center"></textarea><input type="text" id="fLink" placeholder="لینک دانلود" class="glass w-full p-4 rounded-2xl mb-3 outline-none text-left text-white" dir="ltr"><input type="text" id="fCat" placeholder="دسته بندی" class="glass w-full p-4 rounded-2xl mb-6 outline-none text-white text-center"><button onclick="saveFile()" class="btn-animate w-full py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-lg">ذخیره نهایی</button></div></div>
-    <div id="loginModal" class="modal p-4"><div class="glass max-w-sm w-full p-8 rounded-[2.5rem] relative flex flex-col items-center text-center border-white/10 shadow-2xl"><span class="close-btn" onclick="closeModal('loginModal')">&times;</span><h2 class="text-xl md:text-2xl font-black mb-6 text-blue-400">ورود</h2><input type="text" id="loginUser" placeholder="آیدی تلگرام" class="glass w-full p-4 rounded-2xl mb-3 outline-none text-center text-white"><input type="text" id="loginPhone" placeholder="شماره تماس" class="glass w-full p-4 rounded-2xl mb-6 outline-none text-center text-white"><button onclick="handleUserLogin()" class="btn-animate w-full py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-lg">ورود</button><button onclick="closeModal('loginModal'); openModal('signupModal')" class="mt-6 text-blue-400 text-xs font-bold block text-center">ثبت‌نام جدید</button></div></div>
-    <div id="signupModal" class="modal p-4"><div class="glass max-w-sm w-full p-8 rounded-[2.5rem] relative flex flex-col items-center text-center border-white/10 shadow-2xl"><span class="close-btn" onclick="signupClose()">&times;</span><h2 class="text-2xl md:text-3xl font-black mb-6 text-sky-400 text-center">ثبت‌نام</h2><div class="w-full space-y-3"><input type="text" id="regName" placeholder="نام و نام خانوادگی" class="glass w-full p-4 rounded-2xl outline-none text-white text-center"><input type="text" id="regUser" placeholder="آیدی تلگرام" class="glass w-full p-4 rounded-2xl outline-none text-center text-white"><input type="text" id="regPhone" placeholder="شماره تماس" class="glass w-full p-4 rounded-2xl outline-none text-center text-white"></div><button onclick="handleUserSignup()" class="btn-animate w-full py-4 mt-6 bg-sky-500 text-black font-extrabold rounded-2xl shadow-lg text-black">عضویت نهایی</button></div></div>
-    <div id="adminLoginModal" class="modal p-4"><div class="glass max-w-sm w-full p-8 rounded-[2.5rem] relative flex flex-col items-center text-center border-blue-500/30 shadow-2xl"><span class="close-btn" onclick="closeModal('adminLoginModal')">&times;</span><h2 class="text-xl md:text-2xl font-black mb-6 text-blue-400 text-center text-white">ورود مدیریت</h2><input type="text" id="adminUser" placeholder="نام کاربری" class="glass w-full p-4 rounded-2xl mb-3 outline-none text-center text-white"><input type="password" id="adminPass" placeholder="رمز ورود" class="glass w-full p-4 rounded-2xl mb-6 outline-none text-center text-white"><button onclick="checkAdminAuth()" class="btn-animate w-full py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-lg text-white">ورود</button></div></div>
-    <div id="editUserModal" class="modal p-4"><div class="admin-panel-bg max-w-sm w-full p-8 rounded-[2.5rem] relative text-center border-blue-500/20 shadow-2xl text-center"><span class="close-btn" onclick="closeModal('editUserModal')">&times;</span><h2 class="text-lg md:text-xl font-black mb-6 text-blue-400 text-white font-bold text-center">سقف دانلود</h2><input type="number" id="editLimit" class="glass w-full p-4 rounded-2xl mb-6 outline-none text-center font-bold text-sky-400"><button onclick="saveUserEdit()" class="btn-animate w-full py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-lg text-white">ثبت</button></div></div>
-    <div id="historyModal" class="modal p-4"><div class="admin-panel-bg max-w-2xl w-full p-8 rounded-[2.5rem] relative flex flex-col max-h-[85vh] text-right text-xs md:text-sm"><span class="close-btn" onclick="closeModal('historyModal')">&times;</span><h2 class="text-xl md:text-2xl font-black mb-6 text-blue-400 text-center border-b border-blue-500/20 pb-4 text-white">تاریخچه دانلود</h2><div id="historyContent" class="overflow-auto flex-1 pr-2"></div></div></div>
+    <div id="fileFormModal" class="modal p-4"><div class="glass max-w-md w-full p-8 rounded-[2.5rem] relative overflow-auto max-h-[90vh] text-center border-white/10 shadow-2xl"><span class="close-btn" onclick="closeModal('fileFormModal')">&times;</span><h2 id="fileFormTitle" class="text-xl md:text-2xl font-black mb-6 text-blue-400">مدیریت فایل</h2><input type="text" id="fTitle" placeholder="نام فایل" class="glass w-full p-4 rounded-2xl mb-3 outline-none text-white text-center"><input type="text" id="fImg" placeholder="لینک مستقیم" class="glass w-full p-4 rounded-2xl mb-3 outline-none text-left text-white" dir="ltr"><textarea id="fDesc" placeholder="توضیحات" class="glass w-full p-4 rounded-2xl mb-3 outline-none h-24 text-white text-center"></textarea><input type="text" id="fLink" placeholder="لینک دانلود" class="glass w-full p-4 rounded-2xl mb-3 outline-none text-left text-white" dir="ltr"><input type="text" id="fCat" placeholder="دسته بندی" class="glass w-full p-4 rounded-2xl mb-6 outline-none text-white text-center"><button onclick="saveFile()" class="btn-animate w-full py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-lg">ذخیره نهایی</button></div></div>
+    <div id="editUserModal" class="modal p-4"><div class="admin-panel-bg max-w-sm w-full p-8 rounded-[2.5rem] relative text-center border-blue-500/20 shadow-2xl"><span class="close-btn" onclick="closeModal('editUserModal')">&times;</span><h2 class="text-lg md:text-xl font-black mb-6 text-blue-400 text-white font-bold text-center">سقف دانلود</h2><input type="number" id="editLimit" class="glass w-full p-4 rounded-2xl mb-6 outline-none text-center font-bold text-sky-400"><button onclick="saveUserEdit()" class="btn-animate w-full py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-lg text-white">ثبت</button></div></div>
+    <div id="historyModal" class="modal p-4"><div class="admin-panel-bg max-w-2xl w-full p-8 rounded-[2.5rem] relative flex flex-col max-h-[85vh] text-right text-xs md:text-sm"><span class="close-btn" onclick="closeModal('historyModal')">&times;</span><h2 class="text-xl md:text-2xl font-black mb-6 text-blue-400 text-center border-b border-blue-500/20 pb-4 text-white font-bold text-lg">تاریخچه دانلود</h2><div id="historyContent" class="overflow-auto flex-1 pr-2"></div></div></div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -89,9 +90,7 @@
             document.getElementById(id).classList.remove('active');
             if(id === 'downloadModal') document.getElementById('modalMediaContainer').innerHTML = '';
         };
-        window.signupClose = () => window.closeModal('signupModal');
 
-        // شنود فایل‌ها (برای همه)
         onValue(ref(db, 'files'), (snapshot) => {
             const data = snapshot.val();
             window.files = data ? Object.entries(data).map(([key, val]) => ({...val, key})) : [];
@@ -99,13 +98,17 @@
             if (document.getElementById('tabFiles').classList.contains('active')) window.renderAdminFileTable();
         });
 
-        // شنود کاربران
         onValue(ref(db, 'users'), (snapshot) => {
             const data = snapshot.val();
             window.users = data ? Object.values(data) : [];
             if (window.currentUser) {
                 const updated = window.users.find(u => u.phone === window.currentUser.phone);
-                if (updated) { window.currentUser = updated; localStorage.setItem('filepack_session', JSON.stringify(updated)); window.updateUserUI(); }
+                if (updated) { 
+                    window.currentUser = updated; 
+                    const storage = localStorage.getItem('filepack_session') ? localStorage : sessionStorage;
+                    storage.setItem('filepack_session', JSON.stringify(updated)); 
+                    window.updateUserUI(); 
+                }
             }
             if (document.getElementById('tabUsers').classList.contains('active')) window.renderAdminUserTable();
         });
@@ -139,13 +142,7 @@
         };
 
         window.processDownload = () => {
-            // اگر کاربر لاگین نکرده بود، مودال دانلود را ببند و مودال ورود را باز کن
-            if(!window.currentUser) { 
-                window.closeModal('downloadModal'); 
-                window.openModal('loginModal'); 
-                alert("لطفاً ابتدا وارد حساب کاربری خود شوید.");
-                return; 
-            }
+            if(!window.currentUser) { window.closeModal('downloadModal'); window.openModal('loginModal'); return; }
             if(!currentLink || currentLink.trim() === "" || currentLink === "#") return alert("لینک دانلود یافت نشد!");
             const today = new Intl.DateTimeFormat('fa-IR').format(new Date());
             let user = {...window.currentUser};
@@ -163,93 +160,30 @@
             });
         };
 
-        window.openAddFile = () => {
-            editingFileKey = null;
-            document.getElementById('fileFormTitle').innerText = "افزودن فایل جدید";
-            document.getElementById('fTitle').value = ''; document.getElementById('fImg').value = '';
-            document.getElementById('fDesc').value = ''; document.getElementById('fLink').value = '';
-            document.getElementById('fCat').value = ''; window.openModal('fileFormModal');
-        };
-
-        window.saveFile = () => {
-            const data = { id: window.files.length + 1, title: document.getElementById('fTitle').value, img: document.getElementById('fImg').value, desc: document.getElementById('fDesc').value, link: document.getElementById('fLink').value, cat: document.getElementById('fCat').value };
-            if(editingFileKey) update(ref(db, 'files/' + editingFileKey), data).then(() => { editingFileKey = null; window.closeModal('fileFormModal'); });
-            else push(ref(db, 'files'), data).then(() => window.closeModal('fileFormModal'));
-        };
-
-        window.renderAdminFileTable = () => {
-            const tbody = document.getElementById('adminFileTableBody'); tbody.innerHTML = '';
-            window.files.forEach((f) => {
-                tbody.innerHTML += `<tr><td>#${f.id}</td><td class="text-white text-right font-bold text-xs">${f.title}</td><td class="text-xs">${f.cat}</td><td><button onclick="editFile('${f.key}')" class="text-sky-400 ml-2">ویرایش</button><button onclick="deleteFile('${f.key}')" class="text-red-400">حذف</button></td></tr>`;
-            });
-        };
-
-        window.editFile = (key) => {
-            const f = window.files.find(x => x.key === key); editingFileKey = key;
-            document.getElementById('fileFormTitle').innerText = "ویرایش فایل";
-            document.getElementById('fTitle').value = f.title; document.getElementById('fImg').value = f.img;
-            document.getElementById('fDesc').value = f.desc; document.getElementById('fLink').value = f.link;
-            document.getElementById('fCat').value = f.cat; window.openModal('fileFormModal');
-        };
-
-        window.deleteFile = (key) => { if(confirm('حذف شود؟')) remove(ref(db, 'files/' + key)); };
-
-        window.handleUserSignup = () => {
-            const name = document.getElementById('regName').value.trim();
-            const tUser = fixNumbers(document.getElementById('regUser').value.trim().replace('@',''));
-            const tPhone = fixNumbers(document.getElementById('regPhone').value.trim());
-            if(!name || !tUser || !tPhone) return alert('همه را پر کنید');
-            set(ref(db, 'users/' + tPhone), { name, telegram: tUser, phone: tPhone, lastDate: '', customLimit: 5, dailyHistory: [], detailedHistory: [] }).then(() => {
-                alert('ثبت‌نام موفق! حالا وارد شوید.'); window.closeModal('signupModal'); window.openModal('loginModal');
-            });
-        };
-
         window.handleUserLogin = () => {
             const uTeg = fixNumbers(document.getElementById('loginUser').value.trim().replace('@',''));
             const uPho = fixNumbers(document.getElementById('loginPhone').value.trim());
+            const remember = document.getElementById('rememberMe').checked;
             const found = window.users.find(u => u.telegram.toLowerCase() === uTeg.toLowerCase() && u.phone === uPho);
-            if(found) { window.currentUser = found; localStorage.setItem('filepack_session', JSON.stringify(found)); location.reload(); } else alert('یافت نشد!');
+            
+            if(found) { 
+                window.currentUser = found; 
+                if (remember) {
+                    localStorage.setItem('filepack_session', JSON.stringify(found)); 
+                } else {
+                    sessionStorage.setItem('filepack_session', JSON.stringify(found));
+                }
+                location.reload(); 
+            } else alert('اطلاعات ورود یافت نشد!');
         };
 
-        window.checkAdminAuth = () => {
-            const u = fixNumbers(document.getElementById('adminUser').value.trim());
-            const p = fixNumbers(document.getElementById('adminPass').value.trim());
-            if(u === ADMIN_USER && p === ADMIN_PASS) { window.closeModal('adminLoginModal'); window.switchTab('users'); window.openModal('dashboardModal'); } else alert('خطا!');
+        window.handleUserStatus = () => { 
+            if(window.currentUser) { 
+                localStorage.removeItem('filepack_session'); 
+                sessionStorage.removeItem('filepack_session');
+                location.reload(); 
+            } else window.openModal('loginModal'); 
         };
-
-        window.renderAdminUserTable = () => {
-            const tbody = document.getElementById('adminUserTableBody'); tbody.innerHTML = '';
-            window.users.forEach((u, i) => {
-                const countToday = (new Intl.DateTimeFormat('fa-IR').format(new Date()) === u.lastDate) ? (u.dailyHistory ? u.dailyHistory.length : 0) : 0;
-                tbody.innerHTML += `<tr class="text-[10px] md:text-xs"><td>${i+1}</td><td>${u.name}</td><td class="text-blue-400">@${u.telegram}</td><td>${u.phone}</td><td class="text-sky-400 font-bold">${countToday}/${u.customLimit || 5}</td><td><button onclick="showHistory('${u.phone}')" class="text-blue-400 underline">تاریخچه</button></td><td><button onclick="openEditUser('${u.phone}')" class="text-white bg-blue-600 px-2 py-1 rounded-lg">ویرایش</button></td></tr>`;
-            });
-        };
-
-        window.showHistory = (phone) => {
-            const u = window.users.find(x => x.phone === phone);
-            const container = document.getElementById('historyContent'); container.innerHTML = '';
-            if (!u.detailedHistory) container.innerHTML = '<p class="text-center text-gray-500 mt-10">خالی</p>';
-            else [...u.detailedHistory].reverse().forEach((item, i) => {
-                container.innerHTML += `<div class="history-card text-white text-right border border-white/5 p-3 rounded-xl mb-2"><div class="flex flex-col gap-1 w-full text-xs md:text-sm"><span class="font-bold text-white">${u.detailedHistory.length - i}. ${item.name}</span><span class="text-[10px] text-gray-500">${item.time}</span></div></div>`;
-            });
-            window.openModal('historyModal');
-        };
-
-        window.openEditUser = (phone) => {
-            editingUserPhone = phone; const u = window.users.find(x => x.phone === phone);
-            document.getElementById('editLimit').value = u.customLimit || 5; window.openModal('editUserModal');
-        };
-
-        window.saveUserEdit = () => { update(ref(db, 'users/' + editingUserPhone), { customLimit: parseInt(document.getElementById('editLimit').value) }).then(() => window.closeModal('editUserModal')); };
-
-        window.sendFullReportToTelegram = () => {
-            let msg = "📊 گزارش ابری فایل پک\n\n";
-            window.users.forEach((u, i) => msg += `${i+1}. ${u.name} (@${u.telegram})\n`);
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: MY_CHAT_ID, text: msg }) });
-            alert('ارسال شد.');
-        };
-
-        window.handleUserStatus = () => { if(window.currentUser) { localStorage.removeItem('filepack_session'); location.reload(); } else window.openModal('loginModal'); };
 
         window.updateUserUI = () => {
             const btn = document.getElementById('userStatusBtn'); const greet = document.getElementById('userGreeting'); const limitInfo = document.getElementById('limitInfo');
@@ -268,6 +202,80 @@
             }
         };
 
+        window.initApp = () => {
+            const session = localStorage.getItem('filepack_session') || sessionStorage.getItem('filepack_session');
+            if (session) window.currentUser = JSON.parse(session);
+            window.updateUserUI();
+        };
+
+        // مابقی توابع مدیریت ادمین
+        window.openAddFile = () => {
+            editingFileKey = null;
+            document.getElementById('fileFormTitle').innerText = "افزودن فایل جدید";
+            document.getElementById('fTitle').value = ''; document.getElementById('fImg').value = '';
+            document.getElementById('fDesc').value = ''; document.getElementById('fLink').value = '';
+            document.getElementById('fCat').value = ''; window.openModal('fileFormModal');
+        };
+        window.saveFile = () => {
+            const data = { id: window.files.length + 1, title: document.getElementById('fTitle').value, img: document.getElementById('fImg').value, desc: document.getElementById('fDesc').value, link: document.getElementById('fLink').value, cat: document.getElementById('fCat').value };
+            if(editingFileKey) update(ref(db, 'files/' + editingFileKey), data).then(() => { editingFileKey = null; window.closeModal('fileFormModal'); });
+            else push(ref(db, 'files'), data).then(() => window.closeModal('fileFormModal'));
+        };
+        window.renderAdminFileTable = () => {
+            const tbody = document.getElementById('adminFileTableBody'); tbody.innerHTML = '';
+            window.files.forEach((f) => {
+                tbody.innerHTML += `<tr><td>#${f.id}</td><td class="text-white text-right font-bold text-xs">${f.title}</td><td class="text-xs">${f.cat}</td><td><button onclick="editFile('${f.key}')" class="text-sky-400 ml-2">ویرایش</button><button onclick="deleteFile('${f.key}')" class="text-red-400">حذف</button></td></tr>`;
+            });
+        };
+        window.editFile = (key) => {
+            const f = window.files.find(x => x.key === key); editingFileKey = key;
+            document.getElementById('fileFormTitle').innerText = "ویرایش فایل";
+            document.getElementById('fTitle').value = f.title; document.getElementById('fImg').value = f.img;
+            document.getElementById('fDesc').value = f.desc; document.getElementById('fLink').value = f.link;
+            document.getElementById('fCat').value = f.cat; window.openModal('fileFormModal');
+        };
+        window.deleteFile = (key) => { if(confirm('حذف شود؟')) remove(ref(db, 'files/' + key)); };
+        window.handleUserSignup = () => {
+            const name = document.getElementById('regName').value.trim();
+            const tUser = fixNumbers(document.getElementById('regUser').value.trim().replace('@',''));
+            const tPhone = fixNumbers(document.getElementById('regPhone').value.trim());
+            if(!name || !tUser || !tPhone) return alert('همه را پر کنید');
+            set(ref(db, 'users/' + tPhone), { name, telegram: tUser, phone: tPhone, lastDate: '', customLimit: 5, dailyHistory: [], detailedHistory: [] }).then(() => {
+                alert('ثبت‌نام موفق! حالا وارد شوید.'); window.closeModal('signupModal'); window.openModal('loginModal');
+            });
+        };
+        window.checkAdminAuth = () => {
+            const u = fixNumbers(document.getElementById('adminUser').value.trim());
+            const p = fixNumbers(document.getElementById('adminPass').value.trim());
+            if(u === ADMIN_USER && p === ADMIN_PASS) { window.closeModal('adminLoginModal'); window.switchTab('users'); window.openModal('dashboardModal'); } else alert('خطا!');
+        };
+        window.renderAdminUserTable = () => {
+            const tbody = document.getElementById('adminUserTableBody'); tbody.innerHTML = '';
+            window.users.forEach((u, i) => {
+                const countToday = (new Intl.DateTimeFormat('fa-IR').format(new Date()) === u.lastDate) ? (u.dailyHistory ? u.dailyHistory.length : 0) : 0;
+                tbody.innerHTML += `<tr class="text-[10px] md:text-xs"><td>${i+1}</td><td>${u.name}</td><td class="text-blue-400">@${u.telegram}</td><td>${u.phone}</td><td class="text-sky-400 font-bold">${countToday}/${u.customLimit || 5}</td><td><button onclick="showHistory('${u.phone}')" class="text-blue-400 underline">تاریخچه</button></td><td><button onclick="openEditUser('${u.phone}')" class="text-white bg-blue-600 px-2 py-1 rounded-lg">ویرایش</button></td></tr>`;
+            });
+        };
+        window.showHistory = (phone) => {
+            const u = window.users.find(x => x.phone === phone);
+            const container = document.getElementById('historyContent'); container.innerHTML = '';
+            if (!u.detailedHistory) container.innerHTML = '<p class="text-center text-gray-500 mt-10">خالی</p>';
+            else [...u.detailedHistory].reverse().forEach((item, i) => {
+                container.innerHTML += `<div class="history-card text-white text-right border border-white/5 p-3 rounded-xl mb-2"><div class="flex flex-col gap-1 w-full text-xs md:text-sm"><span class="font-bold text-white">${u.detailedHistory.length - i}. ${item.name}</span><span class="text-[10px] text-gray-500">${item.time}</span></div></div>`;
+            });
+            window.openModal('historyModal');
+        };
+        window.openEditUser = (phone) => {
+            editingUserPhone = phone; const u = window.users.find(x => x.phone === phone);
+            document.getElementById('editLimit').value = u.customLimit || 5; window.openModal('editUserModal');
+        };
+        window.saveUserEdit = () => { update(ref(db, 'users/' + editingUserPhone), { customLimit: parseInt(document.getElementById('editLimit').value) }).then(() => window.closeModal('editUserModal')); };
+        window.sendFullReportToTelegram = () => {
+            let msg = "📊 گزارش ابری فایل پک\n\n";
+            window.users.forEach((u, i) => msg += `${i+1}. ${u.name} (@${u.telegram})\n`);
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: MY_CHAT_ID, text: msg }) });
+            alert('ارسال شد.');
+        };
         window.switchTab = (tab) => {
             document.getElementById('sectionUsers').classList.toggle('hidden', tab !== 'users');
             document.getElementById('sectionFiles').classList.toggle('hidden', tab !== 'files');
@@ -276,11 +284,6 @@
             if(tab === 'users') window.renderAdminUserTable(); else window.renderAdminFileTable();
         };
 
-        window.initApp = () => {
-            const session = localStorage.getItem('filepack_session');
-            if (session) window.currentUser = JSON.parse(session);
-            window.updateUserUI();
-        };
     </script>
     <script>
         function toggleScroll() {
@@ -292,7 +295,7 @@
             if (window.scrollY > 300) btnText.innerText = 'بریم بالا'; else btnText.innerText = 'بریم پایین';
         });
         function liveSearch() {
-            let val = document.getElementById('mainSearch').value.toLowerCase();
+            let val = document.getElementById('site_search_input').value.toLowerCase();
             let items = document.getElementsByClassName('file-item');
             for(let item of items) item.style.display = item.innerText.toLowerCase().includes(val) ? "block" : "none";
         }
